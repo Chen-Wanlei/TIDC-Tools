@@ -1,0 +1,74 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "Tool 打卡"
+			}
+		}, {
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/superuser/superuser",
+			"style": {
+				"navigationBarTitleText": "管理中心",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/join/join",
+			"style": {
+				"navigationBarTitleText": "TIDC申请表",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/applyList/applyList",
+			"style": {
+				"navigationBarTitleText": "申请列表",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/settingIP/settingIP",
+			"style": {
+				"navigationBarTitleText": "打卡IP设置",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/about/about",
+			"style": {
+				"navigationBarTitleText": "关于我们",
+				"enablePullDownRefresh": false
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"lazyCodeLoading": "requiredComponents",
+	"tabBar": {
+		"color": "#333333",
+		"selectedColor": "#d81e06",
+		"backgroundColor": "#FFFFFF",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/img/home.png",
+				"selectedIconPath": "static/img/home1.png"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"text": "我的",
+				"iconPath": "static/img/my.png",
+				"selectedIconPath": "static/img/my1.png"
+			}
+		]
+	}
+}
