@@ -122,6 +122,9 @@
 				that.getClockUserFn(obj.token)
 				that.getDayTime(obj.token)
 			})
+			uni.$on('signOut', function() {
+				that.userInfoExist()
+			})
 		},
 		methods: {
 			userInfoExist(info) {
@@ -152,6 +155,28 @@
 					this.ifclock = clockList.ifclock
 				} else {
 					this.listMsg = '登录后才可查看'
+					this.lastClockMsg = '未登录'
+					this.ifclock = false
+					this.listArr = []
+					this.weekTime = {
+						h: '00',
+						m: '00',
+						s: '00',
+					}
+					this.lastClock = {
+						year: '',
+						month: '',
+						day: '',
+						h: '',
+						m: '',
+						s: '',
+					}
+					this.dayTime = {
+						h: '00',
+						m: '00',
+						s: '00',
+						timestamp: 0
+					}
 				}
 			},
 			init() {
@@ -687,12 +712,12 @@
 						uni.setStorageSync('token', newToken)
 						uni.setStorageSync('userInfo', JSON.stringify(userInfo))
 						uni.hideLoading()
-						if(!data.code){
+						if (!data.code) {
 							uni.showToast({
 								icon: 'success',
 								title: '退卡成功'
 							})
-						}else{
+						} else {
 							uni.showModal({
 								title: '提示',
 								content: data.msg,

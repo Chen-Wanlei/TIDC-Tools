@@ -29,11 +29,11 @@
 					<text>加入我们</text>
 					<text class="font-right iconfont icon-next"></text>
 				</button>
-				<button class="btn" v-if="ifLogin && member" @click="monthBtn">
+				<navigator class="btn" url="/pages/leaderboard/leaderboard" v-if="ifLogin && member">
 					<text class="font-left iconfont icon-paihangbang1" style="color: #ffcd00;font-size: 25px;"></text>
 					<text>月打卡排行榜</text>
 					<text class="font-right iconfont icon-next"></text>
-				</button>
+				</navigator>
 				<navigator class="btn" url="/pages/about/about">
 					<text class="font-left iconfont icon-guanyuwomen" style="color: #3f85ff;font-size: 25px;"></text>
 					<text>关于我们</text>
@@ -44,9 +44,15 @@
 					<text>管理系统</text>
 					<text class="font-right iconfont icon-next"></text>
 				</button>
+				<button class="btn out" v-if="ifLogin" @click="signOut">
+					<text>退出登录</text>
+				</button>
 			</view>
 		</view>
-		<view class="origin">Origin JieS @ TIDC Make</view>
+		<view class="origin">
+			<text>version {{version}}</text>
+			<text>Origin JieS @ TIDC Make</text>
+		</view>
 	</view>
 </template>
 
@@ -63,7 +69,8 @@
 				monthInfo: {
 					monthDuration: '0s',
 					monthFrequency: 0
-				}
+				},
+				version: '1.0.0'
 			}
 		},
 		created() {
@@ -72,6 +79,10 @@
 			uni.$on('updateMy', function(userInfo) {
 				that.userInfoExist(userInfo)
 			})
+			const versio = uni.getAccountInfoSync().miniProgram.versio
+			if (versio) {
+				this.version = versio
+			}
 		},
 		methods: {
 			userInfoExist(info) {
@@ -138,7 +149,10 @@
 										uni.request({
 											url: that.$domain + '/users/login',
 											method: 'POST',
-											data: { code: that.$utils.RsaEncryption(e.code) },
+											data: {
+												code: that.$utils.RsaEncryption(e.code),
+												image: userInfo.avatarUrl
+											},
 											success(resData) {
 												that.ifAllowClick = true
 												uni.hideLoading()
@@ -240,11 +254,20 @@
 				})
 				uni.navigateTo({ url: '/pages/join/join', })
 			},
-			monthBtn() {
+			signOut() {
+				let that = this
 				uni.showModal({
 					title: '提示',
-					content: '此模块正在开发中，敬请期待~',
-					showCancel: false,
+					content: '确认要退出登录吗？',
+					confirmColor: 'red',
+					success(res) {
+						if (res.confirm) {
+							uni.removeStorageSync('token')
+							uni.removeStorageSync('userInfo')
+							that.userInfoExist()
+							uni.$emit('signOut')
+						}
+					}
 				})
 			}
 		}
@@ -269,7 +292,7 @@
 		border-radius: 30px 30px 0 0;
 		background-color: #fff;
 		margin-top: -25px;
-		min-height: calc(100vh - 240px + 25px);
+		min-height: calc(100vh - 255px + 25px);
 
 		.portrait {
 			width: 150px;
@@ -414,16 +437,36 @@
 					font-size: 18px;
 				}
 			}
+		
+			.out{
+				display: flex;
+				justify-content: center;
+				width: 40%;
+				font-weight: bolder;
+				color: #fff;
+				background-color: #fa8072;
+				
+				&:active {
+					background-color: #faa287;
+					box-shadow: 0 0 3px #fcfcfc;
+				}
+			}
 		}
 	}
 
 	.origin {
-		height: 40px;
-		line-height: 40px;
+		padding-top: 5px;
+		padding-bottom: 10px;
+		height: 55px;
 		box-sizing: border-box;
-		font-size: 14px;
 		text-align: center;
-		color: #C8C7CC;
 		background-color: #fff;
+
+		text {
+			display: block;
+			font-size: 14px;
+			line-height: 20px;
+			color: #C8C7CC;
+		}
 	}
 </style>

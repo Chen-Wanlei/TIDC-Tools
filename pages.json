@@ -44,6 +44,12 @@
 				"navigationBarTitleText": "关于我们",
 				"enablePullDownRefresh": false
 			}
+		}, {
+			"path": "pages/leaderboard/leaderboard",
+			"style": {
+				"navigationBarTitleText": "月排行榜",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"globalStyle": {
