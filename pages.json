@@ -47,7 +47,7 @@
 		}, {
 			"path": "pages/leaderboard/leaderboard",
 			"style": {
-				"navigationBarTitleText": "月排行榜",
+				"navigationBarTitleText": "排行榜",
 				"enablePullDownRefresh": false
 			}
 		}

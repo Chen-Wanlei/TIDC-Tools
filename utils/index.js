@@ -43,7 +43,6 @@ import CryptoJS from './crypto-js.min.js'
 	 *      immediate: 设置边界【可选】【默认false: 结束边界触发，true: 开始边界触发】
 	 */
 	const debounce = function debounce(func, wait, immediate) {
-		console.log(123)
 		if (typeof func !== 'function') throw new TypeError('func must be an function')
 		if (typeof wait === 'boolean') immediate = wait
 		if (typeof wait !== 'number') wait = 300

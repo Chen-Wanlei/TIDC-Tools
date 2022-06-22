@@ -334,6 +334,10 @@
 						code: 1,
 						msg: '请打开设备Wifi'
 					}
+					if (errCode === 12006) return {
+						code: 1,
+						msg: '请打开设备GPS定位'
+					}
 					return {
 						code: 2,
 						errMsg,

@@ -1,9 +1,6 @@
 <template>
 	<view>
 		<canvas id="canvas" height="260" type="2d" :style="{width:width+'px',height:height+'rpx'}"></canvas>
-		<!-- <view class="about-title">
-			About TIDC
-		</view> -->
 		<view class="image">
 			<image :src="api + '/logo.png'" mode="aspectFit"></image>
 		</view>
@@ -30,7 +27,8 @@
 			this.vy = Math.random() * 3 - 1.5
 			this.r = Math.random() * 3 + 3
 			this.dead = false
-			this.color = '#' + Math.random().toString(16).slice(2, 8)
+			// '#' + Math.random().toString(16).slice(2, 8)
+			this.color = `rgba(${Math.floor(Math.random()*(255+1))},${Math.floor(Math.random()*(255+1))},${Math.floor(Math.random()*(255+1))},${Math.floor(3 + Math.random()*(7+1))/10})`
 		}
 		render(ctx) {
 			ctx.beginPath()
@@ -130,7 +128,7 @@
 
 <style lang="less">
 	#canvas {
-		background-color: #212220;
+		background-color: #f1f1f2;
 	}
 
 	.about-title {
@@ -240,6 +238,7 @@
 					padding: 25rpx 15rpx 10rpx;
 					flex-wrap: wrap;
 					box-sizing: border-box;
+
 					image {
 						margin: 10rpx 5rpx;
 						flex: auto;

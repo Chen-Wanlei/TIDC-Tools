@@ -31,7 +31,7 @@
 				</button>
 				<navigator class="btn" url="/pages/leaderboard/leaderboard" v-if="ifLogin && member">
 					<text class="font-left iconfont icon-paihangbang1" style="color: #ffcd00;font-size: 25px;"></text>
-					<text>月打卡排行榜</text>
+					<text>排行榜</text>
 					<text class="font-right iconfont icon-next"></text>
 				</navigator>
 				<navigator class="btn" url="/pages/about/about">
@@ -79,9 +79,9 @@
 			uni.$on('updateMy', function(userInfo) {
 				that.userInfoExist(userInfo)
 			})
-			const versio = uni.getAccountInfoSync().miniProgram.versio
-			if (versio) {
-				this.version = versio
+			const accountInfo = uni.getAccountInfoSync()
+			if (accountInfo.miniProgram.envVersion === 'release') {
+				this.version = accountInfo.miniProgram.version
 			}
 		},
 		methods: {
@@ -437,15 +437,15 @@
 					font-size: 18px;
 				}
 			}
-		
-			.out{
+
+			.out {
 				display: flex;
 				justify-content: center;
 				width: 40%;
 				font-weight: bolder;
 				color: #fff;
 				background-color: #fa8072;
-				
+
 				&:active {
 					background-color: #faa287;
 					box-shadow: 0 0 3px #fcfcfc;

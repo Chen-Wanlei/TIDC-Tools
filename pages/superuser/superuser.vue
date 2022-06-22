@@ -58,6 +58,9 @@
 		created() {
 			this.verify()
 		},
+		beforeDestroy() {
+			uni.$off('superuser-updata')
+		},
 		methods: {
 			init(token) {
 				let that = this
@@ -66,6 +69,8 @@
 					method: 'POST',
 					data: { token: that.$utils.RsaEncryption(token) },
 					success(res) {
+						uni.hideLoading()
+						uni.$on('superuser-updata', data => that.init(data))
 						if (res.statusCode !== 200) {
 							that.hintText = '加载失败o(╥﹏╥)o'
 							return uni.showModal({
@@ -85,7 +90,6 @@
 						}
 						that.hintText = '暂时还没有成员哦！'
 						that.userList = data.data
-						uni.$on('superuser-updata', data => that.init(data))
 					}
 				})
 			},
@@ -109,8 +113,8 @@
 							method: 'POST',
 							data: { token: that.$utils.RsaEncryption(token) },
 							success(res) {
-								uni.hideLoading()
 								if (res.statusCode !== 200) {
+									uni.hideLoading()
 									return uni.showModal({
 										title: '提示',
 										content: '抱歉，服务器崩溃了o(╥﹏╥)o',
@@ -120,6 +124,7 @@
 								}
 								let data = res.data
 								if (data.code !== 0) {
+									uni.hideLoading()
 									return uni.showModal({
 										title: '提示',
 										content: data.msg,
@@ -129,6 +134,7 @@
 								}
 								data = JSON.parse(that.$utils.AESDecode(data.data))
 								if (!data.super) {
+									uni.hideLoading()
 									return uni.showModal({
 										title: '提示',
 										content: '抱歉，此功能仅开放给超级用户使用',
